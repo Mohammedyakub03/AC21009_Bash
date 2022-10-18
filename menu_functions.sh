@@ -16,6 +16,7 @@ select opt in "${options[@]}"; do
 			displayRepoMenu
 			;;
 		"Open Repository")
+			selectRepository
 			displayRepoOpenMenu
 			;;
 	esac	
