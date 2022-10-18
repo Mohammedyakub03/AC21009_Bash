@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source other_functions.sh
+
 clear
 
 function displayRepoMenu(){
@@ -10,9 +12,12 @@ options=("Create Repository" "Open Repository")
 select opt in "${options[@]}"; do
 	case $opt in 
 		"Create Repository")
+			createRepository
+			displayRepoMenu
 			;;
 		"Open Repository")
 			displayRepoOpenMenu
+			;;
 	esac	
 done
 
