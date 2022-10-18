@@ -69,12 +69,7 @@ select opt in "${options[@]}"; do
 			openFile
 			displayRepoOpenMenu
 			;;
-		"Create File")
-			echo ""
-			echo "1 - Open latest version"
-			echo "2 - Open earlier version"
-			echo ""
-			read input
+		"Add File")
 			;;
 		"Create Folder")
 			;;

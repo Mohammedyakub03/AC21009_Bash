@@ -150,7 +150,21 @@ function openFile(){
     fi
 done
 
-# open the file in a text editor
-gedit $chosenFile
+echo ""
+PS3='Would you like to open the most recent version, or an older version of the file: '
+options=("Current" "Older")
+select opt in "${options[@]}"; do
+
+	# case statement for user to choose option
+	case $opt in 
+		"Current" )
+			# open the file in a text editor
+			gedit $chosenFile
+			;;
+		"Older")
+
+			;;
+	esac	
+done
 
 }
