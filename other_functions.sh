@@ -71,7 +71,7 @@ function selectRepository(){
 	do
 
 		# append the read line to the array
-    	array[ $i ]="$line"        
+    	repositoriesArray[ $i ]="$line"        
     	(( i++ ))
 
     	# list the repositories and read them in
@@ -82,16 +82,16 @@ function selectRepository(){
 	while true;
 	do
     	echo
-    	for i in "${!array[@]}";
+    	for i in "${!repositoriesArray[@]}";
     	do
-       		echo "$(($i+1))) ${array[$i]}"
+       		echo "$(($i+1))) ${repositoriesArray[$i]}"
     	done
     	((i++))
     	echo
    	 	read -p "Select which repository you would like to work in: " choice
     	[ -z "$choice" ] && choice=-1
     	if (( "$choice" > 0 && "$choice" <= $i )); then
-        item="${array[$(($choice-1))]}"
+        item="${repositoriesArray[$(($choice-1))]}"
         chosenRepo="$item"
         if [[ "$item" =~ "uefi" ]]; then
             echo "disk uefi"
@@ -102,8 +102,55 @@ function selectRepository(){
     fi
 done
 
+# change the directory to the chosen repo
 cd /home/$USER/repositories/$chosenRepo
-ls
-pwd
+
+}
+
+function openFile(){
+
+	# initialise variable 'i' to 0
+	i=0
+	currentLocation=$(pwd)
+
+	# while loop that reads in files in repositories
+	# folder into array
+	while read line
+	do
+
+		# append the read line to the array
+    	repoContentArray[ $i ]="$line"        
+    	(( i++ ))
+
+    	# list the files and read them in
+	done < <(ls $currentLocation)
+
+	# process i found online to dynamically create case statements
+	# so i can't make comments on it
+	while true;
+	do
+    	echo
+    	for i in "${!repoContentArray[@]}";
+    	do
+       		echo "$(($i+1))) ${repoContentArray[$i]}"
+    	done
+    	((i++))
+    	echo
+   	 	read -p "Select which file you would like to open: " choice
+    	[ -z "$choice" ] && choice=-1
+    	if (( "$choice" > 0 && "$choice" <= $i )); then
+        item="${repoContentArray[$(($choice-1))]}"
+        chosenFile="$item"
+        if [[ "$item" =~ "uefi" ]]; then
+            echo "disk uefi"
+        fi
+        break
+    elses
+        echo "Input invalid, please try again"
+    fi
+done
+
+# open the file in a text editor
+gedit $chosenFile
 
 }

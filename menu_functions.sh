@@ -66,6 +66,8 @@ select opt in "${options[@]}"; do
 	# case statement for user to choose option
 	case $opt in 
 		"Open File")
+			openFile
+			displayRepoOpenMenu
 			;;
 		"Create File")
 			echo ""
