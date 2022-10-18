@@ -160,6 +160,7 @@ select opt in "${options[@]}"; do
 		"Current" )
 			# open the file in a text editor
 			gedit $chosenFile
+			displayRepoOpenMenu
 			;;
 		"Older")
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# # sourcing file to be able to use functions that run menu options
+# sourcing file to be able to use functions that run menu options
 source other_functions.sh
 
 # clear the console for clarity
