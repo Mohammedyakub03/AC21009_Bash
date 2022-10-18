@@ -10,6 +10,10 @@ clear
 function displayRepoMenu(){
 
 echo ""
+echo "#####"
+echo "START MENU"
+echo "#####"
+echo ""
 
 # select command to display options and let user choose one
 # by inputting corresponding number
@@ -36,7 +40,7 @@ select opt in "${options[@]}"; do
 			# run the select repository function
 			selectRepository
 
-			# re-display menu options
+			# display menu options for working in repo
 			displayRepoOpenMenu
 			;;
 	esac	
@@ -47,6 +51,10 @@ done
 # function to display the open repository menu
 function displayRepoOpenMenu(){
 
+echo ""
+echo "#####"
+echo "REPOSITORY OPTIONS"
+echo "#####"
 echo ""
 
 # select command to display options and let user choose one
@@ -94,6 +102,10 @@ done
 # function to display the options for editing a file
 function displayEditFileOptions(){
 
+echo ""
+echo "#####"
+echo "EDIT FILE"
+echo "#####"
 echo ""
 
 # select command to display options and let user choose one

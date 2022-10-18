@@ -92,17 +92,18 @@ function selectRepository(){
     	[ -z "$choice" ] && choice=-1
     	if (( "$choice" > 0 && "$choice" <= $i )); then
         item="${array[$(($choice-1))]}"
-        echo "$item"
-        if [[ "$item" =~ "uefi" ]]; then # or case ...
+        chosenRepo="$item"
+        if [[ "$item" =~ "uefi" ]]; then
             echo "disk uefi"
-            # loaddisk 0 "$item"
-        #else ...
-             # loaddisk 1 "/${item}/"
         fi
         break
-    else
-        echo "Wrong option"
+    elses
+        echo "Input invalid, please try again"
     fi
 done
+
+cd /home/$USER/repositories/$chosenRepo
+ls
+pwd
 
 }
