@@ -91,16 +91,16 @@ function selectRepository(){
    	 	read -p "Select which repository you would like to work in: " choice
     	[ -z "$choice" ] && choice=-1
     	if (( "$choice" > 0 && "$choice" <= $i )); then
-        item="${repositoriesArray[$(($choice-1))]}"
-        chosenRepo="$item"
+        	item="${repositoriesArray[$(($choice-1))]}"
+        	chosenRepo="$item"
         if [[ "$item" =~ "uefi" ]]; then
             echo "disk uefi"
         fi
         break
-    elses
-        echo "Input invalid, please try again"
-    fi
-done
+    	elses
+        	echo "Input invalid, please try again"
+    	fi
+	done
 
 # change the directory to the chosen repo
 cd /home/$USER/repositories/$chosenRepo
@@ -141,51 +141,49 @@ function findFile(){
    	 	read -p "Select which file you would like to edit: " choice
     	[ -z "$choice" ] && choice=-1
     	if (( "$choice" > 0 && "$choice" <= $i )); then
-        item="${repoContentArray[$(($choice-1))]}"
-        chosenFile="$item"
+        	item="${repoContentArray[$(($choice-1))]}"
+       		chosenFile="$item"
         if [[ "$item" =~ "uefi" ]]; then
             echo "disk uefi"
         fi
         break
-    elses
-        echo "Input invalid, please try again"
-    fi
-done
-
+    	elses
+        	echo "Input invalid, please try again"
+    	fi
+	done
 }
 
 # function to open a file using the variable assigned in 
 # findFile function
 function openFile(){
 
-# run function to find file
-findFile
+	echo ""
 
-echo ""
+	# select command to ask if user would like to open
+	# the most recent or older version of a file
+	PS3='Would you like to open the most recent version, or an older version of the file: '
+	options=("Current" "Older")
+	select opt in "${options[@]}"; do
 
-# select command to ask if user would like to open
-# the most recent or older version of a file
-PS3='Would you like to open the most recent version, or an older version of the file: '
-options=("Current" "Older")
-select opt in "${options[@]}"; do
+		# case statement for user to choose option
+		case $opt in 
+			"Current" )
+				# open the file in a text editor
+				gedit $chosenFile
+				displayRepoOpenMenu
+				;;
+			"Older")
 
-	# case statement for user to choose option
-	case $opt in 
-		"Current" )
-			# open the file in a text editor
-			gedit $chosenFile
-			displayRepoOpenMenu
-			;;
-		"Older")
-
-			;;
-	esac	
-done
+				;;
+		esac	
+	done
 
 }
 
-# function to rename a file
+# function to rename a files
 function renameFile(){
+
+	echo ""
 
 	# run the function to find the file and return it as a variable
 	read -p "What would you like to rename the file to: " renamedFile
