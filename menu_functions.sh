@@ -66,6 +66,8 @@ select opt in "${options[@]}"; do
 	# case statement for user to choose option
 	case $opt in 
 		"Open File")
+
+			# run function to open a file
 			openFile
 			displayRepoOpenMenu
 			;;
@@ -116,6 +118,9 @@ select opt in "${options[@]}"; do
 		"Edit Contents" )
 			;;
 		"Rename File")
+			findFile
+			renameFile
+
 			;;
 		"Move File")
 			;;

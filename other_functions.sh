@@ -107,7 +107,9 @@ cd /home/$USER/repositories/$chosenRepo
 
 }
 
-function openFile(){
+# function to find a file and use the file found
+# in other functions
+function findFile(){
 
 	# initialise variable 'i' to 0
 	i=0
@@ -136,7 +138,7 @@ function openFile(){
     	done
     	((i++))
     	echo
-   	 	read -p "Select which file you would like to open: " choice
+   	 	read -p "Select which file you would like to edit: " choice
     	[ -z "$choice" ] && choice=-1
     	if (( "$choice" > 0 && "$choice" <= $i )); then
         item="${repoContentArray[$(($choice-1))]}"
@@ -150,7 +152,19 @@ function openFile(){
     fi
 done
 
+}
+
+# function to open a file using the variable assigned in 
+# findFile function
+function openFile(){
+
+# run function to find file
+findFile
+
 echo ""
+
+# select command to ask if user would like to open
+# the most recent or older version of a file
 PS3='Would you like to open the most recent version, or an older version of the file: '
 options=("Current" "Older")
 select opt in "${options[@]}"; do
@@ -168,4 +182,17 @@ select opt in "${options[@]}"; do
 	esac	
 done
 
+}
+
+# function to rename a file
+function renameFile(){
+
+	# run the function to find the file and return it as a variable
+	read -p "What would you like to rename the file to: " renamedFile
+
+	# remame the chosen file to whatever the user input
+	mv $chosenFile $renamedFile".txt"
+	echo "File renamed"
+	displayEditFileOptions
+	success=1
 }
