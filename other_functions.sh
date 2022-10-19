@@ -49,7 +49,8 @@ function createRepository(){
 
 			# make a directory in repositories for the repository
 			mkdir -p /home/$USER/repositories/$input
-			mkdir -p /home/$USER/repositories/$input/backups
+			mkdir -p /home/$USER/repositories/$input/file_backups
+			mkdir -p /home/$USER/repositories/$input/files
 
 			# set success to 1 meaning the loop is no
 			# longer needed	
@@ -114,7 +115,6 @@ function findFile(){
 
 	# initialise variable 'i' to 0
 	i=0
-	currentLocation=$(pwd)
 
 	# while loop that reads in files in repositories
 	# folder into array
@@ -126,7 +126,7 @@ function findFile(){
     	(( i++ ))
 
     	# list the files and read them in
-	done < <(ls $currentLocation)
+	done < <(ls /home/$USER/repositories/$chosenRepo/files)
 
 	# process i found online to dynamically create case statements
 	# so i can't make comments on it
@@ -172,23 +172,86 @@ function openFile(){
 				# open the file in a text editor
 				gedit $chosenFile
 
-				date=$( date '+%F_%H:%M:%S' )
-				fileToCopy=$chosenFile
-				$fileToCopy | sed '.txt'
-				fileToCopy="$fileToCopy$date.txt"
+				# if a folder for backups of the selected file does not exist
+				if [[ ! -d "$/home/$USER/repositories/$chosenRepo/file_backups/$chosenFile" ]]
+				then
 
-				(cp $fileToCopy /home/$USER/repositories/$chosenRepo/backups)
+					# make the folder in the directory
+    				mkdir -p "/home/$USER/repositories/$chosenRepo/file_backups/$chosenFile"
+				fi
+
+				# copy file into backups of chosen file
+				cp $chosenFile "/home/$USER/repositories/$chosenRepo/file_backups/$chosenFile"
+
+				# move directory to the backup folder of chosen file
+				cd "/home/$USER/repositories/$chosenRepo/file_backups/$chosenFile"
+
+				# get the date and time in a variable
+				date=$( date '+%F_%H:%M:%S' )
+				fileToCut=$chosenFile
+
+				#cut ".txt" from file name
+				fileToCut=(${fileToCut%????})
+
+				# concatenate strings to make backup file name
+				fileToCopy="$fileToCut"_"$date.txt"
+
+				# rename the file that's been copied into the 
+				# files backup folder
+				mv $chosenFile $fileToCopy
+
+				# move back to the chosen repo directory
+				cd /home/$USER/repositories/$chosenRepo
 
 				displayRepoOpenMenu
 
 				;;
 			"Older")
+				cd /home/$USER/repositories/$chosenRepo/file_backups/$chosenFile
+				currentDirectory=$(pwd)
+				i=0
 
-				;;
-		esac	
-	done
+				# while loop that reads in files in repositories
+				# folder into array
+				while read line
+				do
 
+					# append the read line to the array
+			    	backupFileArray[ $i ]="$line"        
+			    	(( i++ ))
 
+			    	# list the files and read them in
+				done < <(ls $currentDirectory)
+
+				# process i found online to dynamically create case statements
+				# so i can't make comments on it
+				while true;
+				do
+			    	echo
+			    	for i in "${!backupFileArray[@]}";
+			    	do
+			       		echo "$(($i+1))) ${backupFileArray[$i]}"
+			    	done
+			    	((i++))
+			    	echo
+			   	 	read -p "Select which file you would like to $action: " choice
+			    	[ -z "$choice" ] && choice=-1
+			    	if (( "$choice" > 0 && "$choice" <= $i )); then
+			        	item="${backupFileArray[$(($choice-1))]}"
+			       		chosenFile="$item"
+			        if [[ "$item" =~ "uefi" ]]; then
+			            echo "disk uefi"
+			        fi
+			        break
+			    	elses
+			        	echo "Input invalid, please try again"
+			    	fi
+				done
+					gedit $chosenFile
+					displayRepoOpenMenu
+					;;
+					esac	
+				done
 }
 
 # function to rename a files
