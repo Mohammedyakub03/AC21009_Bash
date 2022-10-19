@@ -68,6 +68,7 @@ function displayRepoOpenMenu(){
 			"Open File")
 
 				# run function to find file
+				action="open"
 				findFile
 
 				# run function to open a file
@@ -98,6 +99,7 @@ function displayRepoOpenMenu(){
 				;;
 		esac	
 	done
+
 }
 
 # function to display the options for editing a file
@@ -120,13 +122,16 @@ function displayEditFileOptions(){
 			"Edit Contents" )
 				;;
 			"Rename File")
+				action="rename"
 				findFile
 				renameFile
-
 				;;
 			"Move File")
 				;;
 			"Delete File")
+				action="delete"
+				findFile
+				deleteFile
 				;;
 			"Go Back")
 
@@ -135,4 +140,5 @@ function displayEditFileOptions(){
 				;;
 		esac	
 	done
+
 }

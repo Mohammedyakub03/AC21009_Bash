@@ -102,8 +102,8 @@ function selectRepository(){
     	fi
 	done
 
-# change the directory to the chosen repo
-cd /home/$USER/repositories/$chosenRepo
+	# change the directory to the chosen repo
+	cd /home/$USER/repositories/$chosenRepo
 
 }
 
@@ -138,7 +138,7 @@ function findFile(){
     	done
     	((i++))
     	echo
-   	 	read -p "Select which file you would like to edit: " choice
+   	 	read -p "Select which file you would like to $action: " choice
     	[ -z "$choice" ] && choice=-1
     	if (( "$choice" > 0 && "$choice" <= $i )); then
         	item="${repoContentArray[$(($choice-1))]}"
@@ -192,5 +192,16 @@ function renameFile(){
 	mv $chosenFile $renamedFile".txt"
 	echo "File renamed"
 	displayEditFileOptions
-	success=1
+
+}
+
+function deleteFile(){
+
+	echo ""
+
+	# remove the chosen file
+	rm $chosenFile
+	echo "File deleted"
+	displayEditFileOptions
+
 }
