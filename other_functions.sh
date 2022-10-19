@@ -49,6 +49,7 @@ function createRepository(){
 
 			# make a directory in repositories for the repository
 			mkdir -p /home/$USER/repositories/$input
+			mkdir -p /home/$USER/repositories/$input/backups
 
 			# set success to 1 meaning the loop is no
 			# longer needed	
@@ -170,13 +171,23 @@ function openFile(){
 			"Current" )
 				# open the file in a text editor
 				gedit $chosenFile
+
+				date=$( date '+%F_%H:%M:%S' )
+				fileToCopy=$chosenFile
+				$fileToCopy | sed '.txt'
+				fileToCopy="$fileToCopy$date.txt"
+
+				(cp $fileToCopy /home/$USER/repositories/$chosenRepo/backups)
+
 				displayRepoOpenMenu
+
 				;;
 			"Older")
 
 				;;
 		esac	
 	done
+
 
 }
 
