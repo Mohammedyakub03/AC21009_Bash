@@ -205,6 +205,21 @@ function openFile(){
 				# files backup folder
 				mv $chosenFile $fileToCopy
 
+				# assign the most recent file added to backups
+				# into a variable
+				mostRecentFile=$( ls -tp | grep -v /$ | head -1 )
+
+				# assign the 
+				secondMostRecentFile=$( ls -tp | grep -v /$ | head -2 | tail -1 )
+
+				echo "$mostRecentFile"
+				echo "$secondMostRecentFile"
+
+				if cmp -s "$mostRecentFile" "$secondMostRecentFile"
+				then
+					rm $mostRecentFile
+				fi
+
 				# move back to the chosen repo directory
 				cd /home/$USER/repositories/$chosenRepo
 
