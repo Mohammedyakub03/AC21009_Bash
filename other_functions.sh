@@ -169,6 +169,11 @@ function openFile(){
 		# case statement for user to choose option
 		case $opt in 
 			"Current" )
+				
+				# make sure we're in the directory to save the current version
+				# of the file
+				cd "/home/$USER/repositories/$chosenRepo/files"
+
 				# open the file in a text editor
 				gedit $chosenFile
 
@@ -200,11 +205,25 @@ function openFile(){
 				# files backup folder
 				mv $chosenFile $fileToCopy
 
+				# assign the most recent file added to backups
+				# into a variable
+				mostRecentFile=$( ls -tp | grep -v /$ | head -1 )
+
+				# assign the 
+				secondMostRecentFile=$( ls -tp | grep -v /$ | head -2 | tail -1 )
+
+				echo "$mostRecentFile"
+				echo "$secondMostRecentFile"
+
+				if cmp -s "$mostRecentFile" "$secondMostRecentFile"
+				then
+					rm $mostRecentFile
+				fi
+
 				# move back to the chosen repo directory
 				cd /home/$USER/repositories/$chosenRepo
 
 				displayRepoOpenMenu
-
 				;;
 			"Older")
 				cd /home/$USER/repositories/$chosenRepo/file_backups/$chosenFile
