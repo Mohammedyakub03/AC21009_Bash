@@ -169,6 +169,11 @@ function openFile(){
 		# case statement for user to choose option
 		case $opt in 
 			"Current" )
+				
+				# make sure we're in the directory to save the current version
+				# of the file
+				cd "/home/$USER/repositories/$chosenRepo/files"
+
 				# open the file in a text editor
 				gedit $chosenFile
 
@@ -204,7 +209,6 @@ function openFile(){
 				cd /home/$USER/repositories/$chosenRepo
 
 				displayRepoOpenMenu
-
 				;;
 			"Older")
 				cd /home/$USER/repositories/$chosenRepo/file_backups/$chosenFile
