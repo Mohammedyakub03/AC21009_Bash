@@ -60,7 +60,7 @@ function displayRepoOpenMenu(){
 	# select command to display options and let user choose one
 	# by inputting corresponding number
 	PS3='Choose an option: '
-	options=("Open File" "Create File" "Create Folder" "View content of file" "Add file to Repository" "Edit Files" "Navigate" "Go Back")
+	options=("Open File" "Create File" "Create Folder" "View content of file" "Add file to Repository" "Archive Repository" "Edit Files" "Navigate" "Go Back")
 	select opt in "${options[@]}"; do
 
 		# case statement for user to choose option
@@ -82,6 +82,8 @@ function displayRepoOpenMenu(){
 			"View content of file")
 				;;
 			"Add file to Repository")
+				;;
+			"Archive Repository")
 				;;
 			"Edit Files")
 
