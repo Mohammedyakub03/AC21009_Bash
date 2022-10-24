@@ -291,18 +291,17 @@ function renameFile(){
 
 function addFile()
 {
-	Echo ""
+	echo ""
 
 	cd "/home/$USER/repositories/$chosenRepo/files"
 
 	read -p "Please enter the name of the file to be created: " newFile
 
-	$ touch hello.txt
-
-	$ ls -1
+	touch $newFile
 
 	echo "File $newFile created"
-	displayEditFileOptions
+	displayRepoOpenMenu
+	
 }
 
 function deleteFile(){
@@ -312,6 +311,21 @@ function deleteFile(){
 	# remove the chosen file
 	rm $chosenFile
 	echo "File deleted"
-	displayEditFileOptions
+}
+
+function navigateFiles(){
+
+	echo ""
+
+	read -p "Please enter the name of the folder you wish to naviagte to: " folderName
+
+	if [[ -d "$folderName" ]]; then
+		cd $folderName
+	else
+		echo "Error: ${folderName} not found. Can not continue."
+		
+
+	fi
+	displayRepoOpenMenu
 
 }
