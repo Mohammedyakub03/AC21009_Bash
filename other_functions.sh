@@ -289,7 +289,7 @@ function renameFile(){
 }
 
 
-function addFile()
+function createFile()
 {
 	Echo ""
 
@@ -314,4 +314,59 @@ function deleteFile(){
 	echo "File deleted"
 	displayEditFileOptions
 
+}
+#function to add a file to the repository
+function addFile(){
+
+	echo ""
+
+	#while desired task hasn't been completed
+	while [$success == 0]
+	do
+
+		read -p "please paste in the path of the file you wish to add (not including the file name itself nor the '/' before the file)" filepath
+		read -p "please enter the name of the file you wish to add" file
+
+
+		#if filename already exists in repository. 
+		if[[ -d /home/$USER/repositories/$chosenRepo/"$file" ]]; #if we have folders in repo we might have to find a slightly different way of doing this
+		then
+			echo "A file with this name already exists in the repository, please try again" #might change this to give user option to replace file with new one
+			#else if file is found in the file system
+		elif [[ "$filepath"/"$file" ]]; then
+			cp $file $chosenRepo
+			success = 1
+			#else if file could not be found
+		else
+			echo "The file '$file' cannot be found in the file system, please try again" #we need to also allow
+		fi
+	done
+}
+
+#funtion to create a folder in the repository
+function createFolder(){
+
+	echo ""
+
+	# initialise a variable 'success' to 0 to
+	# use in while loop
+	success=0
+
+	while [$success == 0] 
+	do
+		# ask the user what they want to name the folder
+		read -p "Please enter the name of the folder that you wish to create" name
+
+		# if a folder with the name the user has chosen
+		# exists in the repositories directory
+		if [[ -d /home/$USER/repositories/$chosenRepo/"$name" ]]; then
+			echo "The name you have chosen is already in use within the repository. Please choose another name"
+		else #create the folder
+			mkdir -p /home/$USER/repositories/$chosenRepo/$name
+
+			# set success to 1 meaning the loop is no
+			# longer needed
+			success = 1
+		fi
+	done
 }
