@@ -53,9 +53,11 @@ function displayRepoOpenMenu(){
 
 	echo ""
 	echo "#####"
-	echo "REPOSITORY OPTIONS"
+	echo "REPOSITORY OPTIONS!"
 	echo "#####"
 	echo ""
+
+
 
 	# select command to display options and let user choose one
 	# by inputting corresponding number
@@ -75,7 +77,10 @@ function displayRepoOpenMenu(){
 				openFile
 				displayRepoOpenMenu
 				;;
-			"Add File")
+			"Create File")
+				action="add"
+				addFile
+				displayRepoOpenMenu
 				;;
 			"Create Folder")
 				;;

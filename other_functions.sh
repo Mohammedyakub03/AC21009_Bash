@@ -288,6 +288,23 @@ function renameFile(){
 
 }
 
+
+function addFile()
+{
+	Echo ""
+
+	cd "/home/$USER/repositories/$chosenRepo/files"
+
+	read -p "Please enter the name of the file to be created: " newFile
+
+	$ touch hello.txt
+
+	$ ls -1
+
+	echo "File $newFile created"
+	displayEditFileOptions
+}
+
 function deleteFile(){
 
 	echo ""
