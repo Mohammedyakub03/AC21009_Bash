@@ -79,14 +79,18 @@ function displayRepoOpenMenu(){
 				;;
 			"Create File")
 				action="add"
-				addFile
+				createFile
 				displayRepoOpenMenu
 				;;
 			"Create Folder")
+				createFolder
+				displayRepoOpenMenu
 				;;
 			"View content of file")
 				;;
 			"Add file to Repository")
+				addFile
+				displayRepoOpenMenu
 				;;
 			"Archive Repository")
 				;;
