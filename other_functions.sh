@@ -384,3 +384,30 @@ function createFolder(){
 		fi
 	done
 }
+
+function archiveRepository(){
+	echo ""
+
+	# initialise a variable 'success' to 0 to
+	# use in while loop
+	success=0
+
+	while [$success == 0] 
+	do
+		# ask the user what they want to name the folder
+		read -p "Please enter the name of the project you wish to archive" projName
+
+		# if a folder with the name the user has chosen
+		# exists in the repositories directory
+		if [[ -d home/$USER/repositories/$cprojName/ ]]; then
+			 tar -zcvf home/$USER/repositories/$cprojName/
+			 success = 1
+		else #create the folder
+			echo "This project folder does not exist."
+
+			# set success to 1 meaning the loop is no
+			# longer needed
+			
+		fi
+	done
+}

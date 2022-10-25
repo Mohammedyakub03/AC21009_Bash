@@ -18,7 +18,7 @@ function displayRepoMenu(){
 	# select command to display options and let user choose one
 	# by inputting corresponding number
 	PS3='Choose an option: '
-	options=("Create Repository" "Open Repository")
+	options=("Create Repository" "Open Repository" "Archive Repository")
 	select opt in "${options[@]}"; do
 
 		# case statement for user to choose option
@@ -42,6 +42,12 @@ function displayRepoMenu(){
 
 				# display menu options for working in repo
 				displayRepoOpenMenu
+				;;
+
+			"Archive Repository")
+				archiveRepository
+
+				displayRepoMenu
 				;;
 		esac	
 	done
