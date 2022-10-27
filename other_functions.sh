@@ -334,6 +334,7 @@ function addFile(){
 
 	echo ""
 
+	success=0
 	#while desired task hasn't been completed
 	while [$success == 0]
 	do
@@ -349,7 +350,7 @@ function addFile(){
 			#else if file is found in the file system
 		elif [[ "$filepath"/"$file" ]]; then
 			cp $file $chosenRepo
-			success = 1
+			success=1
 			#else if file could not be found
 		else
 			echo "The file '$file' cannot be found in the file system, please try again" #we need to also allow
@@ -380,7 +381,7 @@ function createFolder(){
 
 			# set success to 1 meaning the loop is no
 			# longer needed
-			success = 1
+			success=1
 		fi
 	done
 }
