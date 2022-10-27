@@ -336,7 +336,7 @@ function addFile(){
 
 	success=0
 	#while desired task hasn't been completed
-	while [$success == 0]
+	while [ $success == 0 ]
 	do
 
 		read -p "please paste in the path of the file you wish to add (not including the file name itself nor the '/' before the file)" filepath
@@ -367,7 +367,7 @@ function createFolder(){
 	# use in while loop
 	success=0
 
-	while [$success == 0] 
+	while [ $success == 0 ] 
 	do
 		# ask the user what they want to name the folder
 		read -p "Please enter the name of the folder that you wish to create" name
