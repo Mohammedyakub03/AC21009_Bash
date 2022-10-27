@@ -348,7 +348,7 @@ function addFile(){
 		then
 			echo "A file with this name already exists in the repository, please try again" #might change this to give user option to replace file with new one
 			#else if file is found in the file system
-		elif [[ -e "$filepath"/"$file" ]]; then
+		elif [[ -e "$filepath/$file" ]]; then
 			cp $file $chosenRepo
 			success=1
 			#else if file could not be found
