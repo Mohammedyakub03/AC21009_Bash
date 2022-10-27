@@ -344,7 +344,7 @@ function addFile(){
 
 
 		#if filename already exists in repository. 
-		if[[ -d /home/$USER/repositories/$chosenRepo/"$file" ]]; #if we have folders in repo we might have to find a slightly different way of doing this
+		if [[ -d /home/$USER/repositories/$chosenRepo/"$file" ]]; #if we have folders in repo we might have to find a slightly different way of doing this
 		then
 			echo "A file with this name already exists in the repository, please try again" #might change this to give user option to replace file with new one
 			#else if file is found in the file system
